@@ -1,15 +1,22 @@
 DROP TABLE alunos;
 
-/* ---------------
- * Usuarios
- * ---------------
-*/
+
+CREATE TABLE pes_pessoa_fisica (
+	  pes_id
+	, pes_nome
+	, pes_data_nascimento
+	, pes_sexo
+	, pes_data_registro
+	, pes_cpf
+	, pes_rg
+);
+
 
 CREATE TABLE usu_usuario (
 	  usu_id SERIAL PRIMARY KEY
-	, usu_email -- email
+	, usu_email
 	, usu_senha
-	, usu_nome
+	, usu_pes_id
 );
 
 CREATE TABLE per_perfil (
@@ -23,28 +30,21 @@ CREATE TABLE pfu_perfil_usuario (
 	, pfu_usu_id  REFERENCES usu_usuario (usu_id) ON DELETE CASCADE
 );
 
-/* ---------------
- * Academia
- * ---------------
-*/
 
 CREATE TABLE alu_aluno (
 	  alu_id
-	, alu_nome
-	, alu_data_nascimento
-	, alu_sexo
-	, alu_data_registro
+	, alu_pes_id
 );
 
-CREATE TABLE ema_email_aluno (
-	  ema_id
-	, ema_alu_id
-	, ema_email
+CREATE TABLE eml_email (
+	  eml_id
+	, eml_pes_id
+	, eml_email
 );
 
-CREATE TABLE telefone_aluno (
+CREATE TABLE tel_telefone (
 	  tel_id
-	, tel_alu_id
+	, tel_pes_id
 	, tel_rotulo
 	, tel_telefone
 );
@@ -56,7 +56,7 @@ CREATE TABLE uf_uf (
 
 CREATE TABLE end_endereco (
 	  end_id
-	, end_alu_id
+	, end_pes_id
 	, end_logradouro
 	, end_numero
 	, end_complemento
@@ -72,48 +72,48 @@ CREATE TABLE mod_modalidade (
 	, mod_nome -- taekwondo, pilates
 );
 
-CREATE TABLE prof_professor ()
-	  prof_id
-	, prof_nome
+CREATE TABLE pro_professor ()
+	  pro_id
+	, pro_pes_id
 ;
 
 
 CREATE TABLE tur_turma (
 	  tur_id
 	, tur_mod_id
-	, tur_prof_id
+	, tur_pro_id
 	, tur_data_registro
 	, tur_data_inicio
 	, tur_dias
 	, tur_hora_inicio
 	, tur_hora_termino
+	, tur_valor_mensalidade
+);
+
+CREATE TABLE con_convenio (
+	  con_id
+	, con_nome
+	, con_desconto
+);
+
+CREATE TABLE coa_convenio_aluno (
+	  coa_id
+	, coa_con_id
+	, coa_alu_id
 );
 
 
-
--- ??
-CREATE TABLE mat_matricula (
-	  mat_id
-	, mat_tur_id
-	, mat_alu_id
-	, mat_data_inicio
-	, mat_data_termino
-	, mat_convenio
+CREATE TABLE tal_turma_aluno (
+	  tal_id
+	, tal_tur_id
+	, tal_alu_id
+	, tal_data_registro
+	, tal_valor_aluno
+	, tal_data_vencimento
+	, tal_observacao
 );
 
 
-/* ---------------
- * Dúvidas Negócio
- * ---------------
- * Valor da mensalidade: por turma, por modalidade, reajuste? atrasos? multa? evasão?
- * Convênio, descontos?
- * CPF aluno? outros dados?
- * Professor dados?
- * 
- * 
- * 
- *  
-*/
 
 
 
