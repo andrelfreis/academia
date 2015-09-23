@@ -2,26 +2,26 @@ DROP TABLE alunos;
 
 
 CREATE TABLE pes_pessoa (
-	  pes_id PRIMARY KEY
+	  pes_id SERIAL PRIMARY KEY
 	, pes_nome NOT NULL
 	, pes_data_nascimento NOT NULL
 	, pes_sexo NOT NULL
 	, pes_data_registro NOT NULL
-	, pes_cpf 
+	, pes_cpf UNIQUE
 	, pes_rg
 );
 
 
 CREATE TABLE usu_usuario (
 	  usu_id SERIAL PRIMARY KEY
-	, usu_email NOT NULL
-	, usu_senha NOT NULL
+	, usu_email character varying UNIQUE NOT NULL
+	, usu_senha character varying NOT NULL
 	, usu_pes_id  REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE
 );
 
 CREATE TABLE per_perfil (
 	  per_id SERIAL PRIMARY KEY
-	, per_nome NOT NULL	-- administrador, aluno, funcionario, 
+	, per_nome character varying NOT NULL	-- administrador, aluno, funcionario, 
 );
 
 CREATE TABLE pfu_perfil_usuario (
@@ -32,26 +32,27 @@ CREATE TABLE pfu_perfil_usuario (
 
 
 CREATE TABLE alu_aluno (
-	  alu_id PRIMARY KEY
+	  alu_id SERIAL PRIMARY KEY
 	, alu_pes_id  REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE
 );
 
 CREATE TABLE eml_email (
-	  eml_id PRIMARY KEY
+	  eml_id SERIAL PRIMARY KEY
 	, eml_pes_id  REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE
-	, eml_email NOT NULL
+	, eml_email character varying NOT NULL
 );
 
 CREATE TABLE tel_telefone (
-	  tel_id PRIMARY KEY
+	  tel_id SERIAL PRIMARY KEY
 	, tel_pes_id  REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE
-	, tel_rotulo NOT NULL
-	, tel_telefone NOT NULL
+	, tel_rotulo character varying(30) NOT NULL
+	, tel_telefone character varying(15) NOT NULL
 );
 
 CREATE TABLE uf_uf (
-	  uf_id PRIMARY KEY
-	, uf_nome NOT NULL
+	  uf_id SERIAL PRIMARY KEY
+	, uf_sigla character(2) UNIQUE NOT NULL  
+	, uf_nome character varying(2) NOT NULL
 );
 
 CREATE TABLE end_endereco (
