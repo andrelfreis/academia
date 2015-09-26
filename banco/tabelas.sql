@@ -154,7 +154,7 @@ CREATE TABLE end_endereco (
 ALTER TABLE end_endereco
 	  ADD CONSTRAINT pk_end_id PRIMARY KEY (end_id)
 	, ADD CONSTRAINT fk_end_pes_id FOREIGN KEY (end_pes_id) REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE 
-	, ADD CONSTRAINT fk_end_if_id FOREIGN KEY (end_uf_id) REFERENCES uf_uf (uf_id) ON DELETE RESTRICT
+	, ADD CONSTRAINT fk_end_if_id FOREIGN KEY (end_uf_id) REFERENCES uf_uf (uf_id) 
 ;
 CREATE SEQUENCE sq_end_id;
 
@@ -173,10 +173,10 @@ CREATE SEQUENCE sq_mod_id;
 
 
 
-CREATE TABLE pro_professor ()
+CREATE TABLE pro_professor (
 	  pro_id integer NOT NULL
 	, pro_pes_id integer NOT NULL REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE
-;
+);
 ALTER TABLE pro_professor
 	  ADD CONSTRAINT pk_pro_id PRIMARY KEY (pro_id)
 	, ADD CONSTRAINT fk_pro_pes_id FOREIGN KEY (pro_pes_id) REFERENCES pes_pessoa (pes_id) ON DELETE CASCADE 
@@ -188,50 +188,112 @@ CREATE SEQUENCE sq_pro_id;
 
 CREATE TABLE tur_turma (
 	  tur_id integer NOT NULL
-	, tur_mod_id integer NOT NULL REFERENCES mod_modalidade (mod_id)
-	, tur_pro_id integer NOT NULL REFERENCES pro_professor (pro_id)
+	, tur_mod_id integer NOT NULL 
+	, tur_pro_id integer NOT NULL 
 	, tur_data_registro date NOT NULL DEFAULT CURRENT_DATE
 	, tur_data_inicio date NOT NULL
-	, tur_dias NOT NULL
 	, tur_hora_inicio time NOT NULL
 	, tur_hora_termino time NOT NULL
+	, tur_data_termino date NULL
 	, tur_valor_mensalidade numeric(7,2) NOT NULL
 );
-
+ALTER TABLE tur_turma
+	  ADD CONSTRAINT pk_tur_id PRIMARY KEY (tur_id)
+	, ADD CONSTRAINT fk_tur_mod_id FOREIGN KEY (tur_mod_id) REFERENCES mod_modalidade (mod_id) 
+	, ADD CONSTRAINT fk_tur_pro_id FOREIGN KEY (tur_pro_id) REFERENCES pro_professor (pro_id) 
+	, ADD CONSTRAINT fk_tur_tdi_id FOREIGN KEY (tur_tdi_id) REFERENCES tdi_turma_dia (tdi_id) 
+	, ADD CONSTRAINT ck_hora_inicio_menor_que_hora_termino CHECK (tur_hora_inicio < tur_hora_termino)
+;
 CREATE SEQUENCE sq_tur_id;
 
 
+
+CREATE TABLE dia_dia (
+	  dia_id integer NOT NULL
+	, dia_nome character varying(7) NOT NULL -- 1-domingo a 7-segunda
+);
+ALTER TABLE dia_dia
+	  ADD CONSTRAINT pk_dia_id PRIMARY KEY (dia_id)
+;
+CREATE UNIQUE INDEX un_dia_repetido ON dia_dia (lower(dia_nome));
+
+
+
+CREATE TABLE tdi_turma_dia (
+	  tdi_id integer NOT NULL
+	, tdi_tur_id integer NOT NULL
+	, tdi_dia_id integer NOT NULL
+);
+ALTER TABLE tdi_turma_dia
+	  ADD CONSTRAINT pk_tdi_id PRIMARY KEY (tdi_id) 
+	, ADD CONSTRAINT fk_tdi_tur_id FOREIGN KEY (tdi_tur_id) REFERENCES tur_turma (tur_id) ON DELETE CASCADE
+    , ADD CONSTRAINT fk_tdi_dia_id FOREIGN KEY (tdi_dia_id) REFERENCES dia_dia (dia_id)	ON DELETE CASCADE
+	, ADD CONSTRAINT un_dia_turma_repetido UNIQUE (tdi_tur_id, tdi_dia_id)
+;
+CREATE SEQUENCE sq_tdi_id;
+
+
+
 CREATE TABLE tal_turma_aluno (
-	  tal_id PRIMARY KEY
-	, tal_tur_id  REFERENCES tur_turma (tur_id) ON DELETE CASCADE
-	, tal_alu_id  REFERENCES alu_aluno (alu_id) ON DELETE CASCADE
-	, tal_data_registro NOT NULL
-	, tal_valor_aluno NOT NULL
-	, tal_data_vencimento NOT NULL
+	  tal_id integer NOT NULL
+	, tal_tur_id integer NOT NULL REFERENCES tur_turma (tur_id) ON DELETE CASCADE
+	, tal_alu_id integer NOT NULL  REFERENCES alu_aluno (alu_id) ON DELETE CASCADE
+	, tal_data_registro date NOT NULL DEFAULT CURRENT_DATE
+	, tal_valor_aluno numeric(7,2) NOT NULL
+	, tal_dia_vencimento smallint NOT NULL
 	, tal_observacao character varying NULL
 );
-
+ALTER TABLE tal_turma_aluno
+	  ADD CONSTRAINT pk_tal_id PRIMARY KEY (tal_id)
+	, ADD CONSTRAINT fk_tal_tur_id FOREIGN KEY (tal_tur_id) REFERENCES tur_turma (tur_id)
+	, ADD CONSTRAINT fk_tal_alu_id FOREIGN KEY (tal_alu_id) REFERENCES alu_aluno (alu_id)
+	, ADD CONSTRAINT ck_dia_vencimento_valido CHECK (tal_dia_vencimento > 0 AND tal_dia_vencimento < 32)
+	, ADD CONSTRAINT un_aluno_repetido_na_turma UNIQUE (tal_tur_id, tal_alu_id)
+;
 CREATE SEQUENCE sq_tal_id;
 
 
-CREATE TABLE con_convenio (
-	  con_id PRIMARY KEY
-	, con_nome NOT NULL
-	, con_desconto
-);
 
+CREATE TABLE con_convenio (
+	  con_id integer NOT NULL
+	, con_nome character varying(200) NOT NULL
+	, con_desconto smallint NOT NULL
+);
+ALTER TABLE con_convenio
+	  ADD CONSTRAINT pk_con_id PRIMARY KEY (con_id)
+	, ADD CONSTRAINT ck_desconto_valido CHECK (con_desconto > -1 AND con_desconto < 101)
+;
+CREATE UNIQUE INDEX un_convenio_repetido ON con_convenio (lower(con_nome));
 CREATE SEQUENCE sq_con_id;
 
 
 
 CREATE TABLE coa_convenio_aluno (
-	  coa_id PRIMARY KEY
-	, coa_con_id REFERENCES con_convenio (con_id) ON DELETE CASCADE
-	, coa_alu_id REFERENCES alu_aluno (alu_id) ON DELETE CASCADE
+	  coa_id integer NOT NULL
+	, coa_con_id integer NOT NULL REFERENCES con_convenio (con_id) ON DELETE CASCADE
+	, coa_alu_id integer NOT NULL REFERENCES alu_aluno (alu_id) ON DELETE CASCADE
 );
-
+ALTER TABLE coa_convenio_aluno
+	  ADD CONSTRAINT pk_coa_id PRIMARY KEY (coa_id)
+	, ADD CONSTRAINT fk_coa_con_id FOREIGN KEY (coa_con_id) REFERENCES con_convenio (con_id)
+	, ADD CONSTRAINT fk_coa_alu_id FOREIGN KEY (coa_alu_id) REFERENCES alu_aluno (alu_id)
+	, ADD CONSTRAINT un_convenio_aluno_repetido UNIQUE (coa_con_id, coa_alu_id)
+;
 CREATE SEQUENCE sq_coa_id;
 
+
+
+CREATE TABLE pag_pagamento (
+	  pag_id integer NOT NULL
+	, pag_data_registro date NOT NULL DEFAULT CURRENT_DATE
+	, pag_tal_id integer NOT NULL
+	, pag_data_vencimento date NOT NULL
+	, pag_valor_vencimento numeric(7,2) NOT NULL
+	, pag_data_pagamento date NULL
+	, pag_valor_pago numeric(7,2) NULL
+
+
+);
 
 
 
