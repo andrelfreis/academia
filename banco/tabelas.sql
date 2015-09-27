@@ -16,6 +16,44 @@ DROP SEQUENCE sq_pfu_id;
 DROP TABLE alunos;
 DROP SEQUENCE sq_alu_id;
 
+DROP TABLE eml_email_pessoa;
+DROP SEQUENCE sq_eml_id;
+
+DROP TABLE tel_telefone_pessoa;
+DROP SEQUENCE sq_tel_id;
+
+DROP TABLE uf_uf;
+DROP SEQUENCE sq_uf_id;
+
+DROP TABLE end_endereco;
+DROP SEQUENCE sq_end_id;
+
+DROP TABLE mod_modalidade;
+DROP SEQUENCE sq_mod_id;
+
+DROP TABLE pro_professor;
+DROP SEQUENCE sq_pro_id;
+
+DROP TABLE tur_turma;
+DROP SEQUENCE sq_tur_id;
+
+DROP TABLE dia_dia;
+DROP SEQUENCE sq_dia_id;
+
+DROP TABLE tdi_turma_dia;
+DROP SEQUENCE sq_tdi_id;
+
+DROP TABLE tal_turma_aluno;
+DROP SEQUENCE sq_tal_id;
+
+DROP TABLE con_convenio;
+DROP SEQUENCE sq_con_id;
+
+DROP TABLE coa_convenio_aluno;
+DROP SEQUENCE sq_coa_id;
+
+DROP TABLE pag_pagamento;
+DROP SEQUENCE sq_pag_id;
 
 
 
@@ -257,7 +295,7 @@ CREATE SEQUENCE sq_tal_id;
 CREATE TABLE con_convenio (
 	  con_id integer NOT NULL
 	, con_nome character varying(200) NOT NULL
-	, con_desconto smallint NOT NULL
+	, con_desconto numeric(5,2) NOT NULL
 );
 ALTER TABLE con_convenio
 	  ADD CONSTRAINT pk_con_id PRIMARY KEY (con_id)
@@ -291,12 +329,31 @@ CREATE TABLE pag_pagamento (
 	, pag_valor_vencimento numeric(7,2) NOT NULL
 	, pag_data_pagamento date NULL
 	, pag_valor_pago numeric(7,2) NULL
-
-
 );
+ALTER TABLE pag_pagamento
+	  ADD CONSTRAINT pk_pag_id PRIMARY KEY (pag_id)
+	, ADD CONSTRAINT fk_pag_tal_id FOREIGN KEY (pag_tal_id) REFERENCES tal_turma_aluno (tal_id)
+;
+CREATE SEQUENCE sq_pag_id;
 
 
 
-
--- GRANT SELECT, INSERT, UPDATE, DELETE ON TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON pes_pessoa TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON usu_usuario TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON per_perfil TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON pfu_perfil_usuario TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON alunos TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON eml_email_pessoa TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tel_telefone_pessoa TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON uf_uf TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON end_endereco TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON mod_modalidade TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON pro_professor TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tur_turma TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON dia_dia TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tdi_turma_dia TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON tal_turma_aluno TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON con_convenio TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON coa_convenio_aluno TO app3f;
+GRANT SELECT, INSERT, UPDATE, DELETE ON pag_pagamento TO app3f;
 
