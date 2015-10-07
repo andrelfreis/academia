@@ -169,12 +169,8 @@ CREATE TABLE uf_uf (
 );
 ALTER TABLE uf_uf
 	  ADD CONSTRAINT pk_uf_id PRIMARY KEY (uf_id)
-	--, ADD CONSTRAINT un_sigla_uf_repetida UNIQUE (uf_sigla)
-	--, ADD CONSTRAINT un_nome_uf_repetido UNIQUE (uf_nome)
 ;
 CREATE UNIQUE INDEX un_sigla_uf_repetida ON uf_uf (lower(uf_sigla));
-CREATE UNIQUE INDEX un_nome_uf_repetido ON uf_uf (lower(uf_nome));
-CREATE SEQUENCE sq_uf_id;
 
 
 
@@ -338,22 +334,4 @@ CREATE SEQUENCE sq_pag_id;
 
 
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON pes_pessoa TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON usu_usuario TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON per_perfil TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON pfu_perfil_usuario TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON alunos TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON eml_email_pessoa TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tel_telefone_pessoa TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON uf_uf TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON end_endereco TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON mod_modalidade TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON pro_professor TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tur_turma TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON dia_dia TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tdi_turma_dia TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON tal_turma_aluno TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON con_convenio TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON coa_convenio_aluno TO app3f;
-GRANT SELECT, INSERT, UPDATE, DELETE ON pag_pagamento TO app3f;
 
