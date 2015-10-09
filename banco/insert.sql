@@ -1,6 +1,6 @@
 
 
-INSERT INTO uf_uf 
+INSERT INTO app3f.uf_uf 
   (uf_id, uf_sigla, uf_nome)
 VALUES
   (1, 'AC', 'Acre')
@@ -34,7 +34,7 @@ VALUES
 
 
 
-INSERT INTO dia_dia 
+INSERT INTO app3f.dia_dia 
   (dia_id, dia_nome)
 VALUES
   (1, 'Domingo')
