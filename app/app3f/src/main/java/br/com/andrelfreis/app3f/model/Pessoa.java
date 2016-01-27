@@ -39,6 +39,9 @@ public class Pessoa {
 	private String rg; // pes_rg character varying(12) NULL
 	
 	
+	/* *****************
+	 * Getters & Setters
+	 ***************** */
 	public Long getId() {
 		return id;
 	}
@@ -81,6 +84,7 @@ public class Pessoa {
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
+	
 	
 	
 }

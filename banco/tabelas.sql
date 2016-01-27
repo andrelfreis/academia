@@ -193,7 +193,7 @@ CREATE SEQUENCE app3f.sq_end_id;
 
 CREATE TABLE app3f.mod_modalidade (
 	  mod_id integer NOT NULL
-	, mod_nome character varying(8) NOT NULL -- taekwondo, pilates
+	, mod_nome character varying(20) NOT NULL -- taekwondo, pilates
 );
 ALTER TABLE app3f.mod_modalidade
 	  ADD CONSTRAINT pk_mod_id PRIMARY KEY (mod_id)
