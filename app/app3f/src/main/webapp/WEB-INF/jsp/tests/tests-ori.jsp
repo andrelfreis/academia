@@ -2,9 +2,9 @@
 
 <html>
     <head>
-        <title>Página inicial</title>
+        <title>Página para testes</title>
     </head>
     <body>
-        <h1>${mensagem}</h1>
+        ${mensagem}
     </body>
 </html>
