@@ -1,0 +1,39 @@
+Solicitações:
+Cadastro por modalidade
+Forma de pagamento 
+Descontos ou convênios
+Relatório diário de faturamento geral e por modalidade 
+Relatório de inadimplência 
+Relatório mensal geral e por modalidade... etc...
+
+
+recursos:
+
+/modalidade
+- GET: lista as modalidades, com um botão + para abrir o formulario de inclusão
+se clicar numa modalidade, abre a tela para edição, só com opção de exclusão
+- POST: cria a nova modalidade
+- PUT: edita (exclui)
+
+
+
+
+
+
+
+
+interfaces:
+
+- tela principal: /modalidadealuno GET, 
+-- se tiver modalidade, redirect para /modalidadealuno/<modalidade>
+-- se não tiver, exibir mensagem: "Nenhuma modalidade cadastrada" c/ opção: cadastrar modalidade
+Lista a modalidade selecionada
+** Lista a turma selecionada ** por enquanto não, lista direto os alunos
+Lista os alunos matriculados na turma selecionada
+
+Setas para direita ou esquerda, roda com as outras modalidades, turmas e alunos.
+
+Clica na modalidade, vai para GET /modalidade 
+
+
+
