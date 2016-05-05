@@ -11,40 +11,40 @@
 		];
 		
 		var alunosTaekwondo = [
-				  	{nome: "Aluno Taekwondo 1"}
-				  , {nome: "Aluno Taekwondo 2"}
-				  , {nome: "Aluno Taekwondo 3"}
-				  , {nome: "Aluno Taekwondo 4"}
-				  , {nome: "Aluno Taekwondo 5"}
-				  , {nome: "Aluno Taekwondo 6"}
-				  , {nome: "Aluno Taekwondo 7"}
-				  , {nome: "Aluno Taekwondo 8"}
-				  , {nome: "Aluno Taekwondo 9"}
-				  , {nome: "Aluno Taekwondo 10"}
-				  , {nome: "Aluno Taekwondo 11"}
-				  , {nome: "Aluno Taekwondo 12"}
-				  , {nome: "Aluno Taekwondo 13"}
+				  	{nome: "Aluno Taekwondo 1", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 2", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 3", turma: "Turma Seg-Qua-Sex 19:30h"}
+				  , {nome: "Aluno Taekwondo 4", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 5", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 6", turma: "Turma Seg-Qua-Sex 19:30h"}
+				  , {nome: "Aluno Taekwondo 7", turma: "Turma Seg-Qua-Sex 19:30h"}
+				  , {nome: "Aluno Taekwondo 8", turma: "Turma Seg-Qua-Sex 19:30h"}
+				  , {nome: "Aluno Taekwondo 9", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 10", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 11", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 12", turma: "Turma Ter-Qui 20h"}
+				  , {nome: "Aluno Taekwondo 13", turma: "Turma Ter-Qui 20h"}
 			  	];
 
 		var alunosAikido = [
-					{nome: "Aluno Aikido 1"}
-				  , {nome: "Aluno Aikido 2"}
-				  , {nome: "Aluno Aikido 3"}
-				  , {nome: "Aluno Aikido 4"}
-				  , {nome: "Aluno Aikido 5"}
-				  , {nome: "Aluno Aikido 6"}
+					{nome: "Aluno Aikido 1", turma: "Turma Ter-Qua 15h"}
+				  , {nome: "Aluno Aikido 2", turma: "Turma Ter-Qua 15h"}
+				  , {nome: "Aluno Aikido 3", turma: "Turma Ter-Qua 15h"}
+				  , {nome: "Aluno Aikido 4", turma: "Turma Sab 10h"}
+				  , {nome: "Aluno Aikido 5", turma: "Turma Sab 10h"}
+				  , {nome: "Aluno Aikido 6", turma: "Turma Sab 10h"}
 				];
 
 		var alunosPilates = [
-					{nome: "Aluno Pilates 1"}
-				  , {nome: "Aluno Pilates 2"}
-				  , {nome: "Aluno Pilates 3"}
-				  , {nome: "Aluno Pilates 4"}
-				  , {nome: "Aluno Pilates 5"}
-				  , {nome: "Aluno Pilates 6"}
-				  , {nome: "Aluno Pilates 7"}
-				  , {nome: "Aluno Pilates 8"}
-				  , {nome: "Aluno Pilates 9"}
+					{nome: "Aluno Pilates 1", turma: "Turma Seg-Qua 10h"}
+				  , {nome: "Aluno Pilates 2", turma: "Turma Ter-Sex 17h"}
+				  , {nome: "Aluno Pilates 3", turma: "Turma Ter-Sex 17h"}
+				  , {nome: "Aluno Pilates 4", turma: "Turma Seg-Qua 10h"}
+				  , {nome: "Aluno Pilates 5", turma: "Turma Seg-Qua 10h"}
+				  , {nome: "Aluno Pilates 6", turma: "Turma Ter-Sex 17h"}
+				  , {nome: "Aluno Pilates 7", turma: "Turma Ter-Sex 17h"}
+				  , {nome: "Aluno Pilates 8", turma: "Turma Ter-Sex 17h"}
+				  , {nome: "Aluno Pilates 9", turma: "Turma Seg-Qua 10h"}
 				];
 		
 		$scope.alunos = [];

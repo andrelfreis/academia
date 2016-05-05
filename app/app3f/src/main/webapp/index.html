@@ -13,13 +13,15 @@
         <div class="tabModalidades">
   			<md-content>
 			    <md-tabs md-dynamic-height="" md-border-bottom="" md-stretch-tabs="always">
-					<md-tab ng-repeat="modalidade in modalidades" md-on-select="carregarAlunos(modalidade)" label="{{modalidade.nome}}">
+					<md-tab ng-repeat="modalidade in modalidades" md-on-select="carregarAlunos(modalidade)" label="{{ modalidade.nome }}">
 						<md-content class="md-padding">
-							<h1 class="md-display-2">{{modalidade.nome}}</h1>
 							 <md-list>
-                <md-list-item ng-repeat="aluno in alunos">
+                <md-list-item class="md-2-line" ng-repeat="aluno in alunos">
                   <img alt="{{ aluno.nome }}" ng-src="img/taekwondo-avatar.jpg" class="md-avatar" />
-                  <p>{{aluno.nome}}</p>
+                  <div class="md-list-item-text" layout="column">
+                    <h3>{{ aluno.nome }}</h3>
+                    <h4>{{ aluno.turma }}</h4>
+                  </div>
                 </md-list-item>
                </md-list>
 						</md-content>
@@ -29,8 +31,6 @@
 		</div>
 
         
-        
-        <p>${mensagem}</p>
         
         
         <!-- Angular Material requires Angular.js Libraries -->
