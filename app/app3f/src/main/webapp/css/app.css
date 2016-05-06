@@ -14,3 +14,7 @@
 .tabModalidades md-content h1:first-child {
     margin-top: 0; 
 }
+
+.btnNovaModalidade {
+	margin-top: -12px;
+}

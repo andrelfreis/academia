@@ -1,14 +1,19 @@
-(function(){
-    "use strict";
-
-    var app = angular.module("gestaoAcademia", ["ngMaterial"]);
-    app.controller("alunosModalidadeCtrl", alunosModalidadeCtrl);
+angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModalidadeCtrl);
     function alunosModalidadeCtrl ($scope) {
 		$scope.modalidades = [
 			{nome: "Taekwondo"}
 		  , {nome: "Aikido"}
 		  , {nome: "Pilates"}
 		];
+
+		$scope.labelBtnNovaModalidade = "+";
+		$scope.preencherlabelBtnNovaModalidade = function() {
+			$scope.labelBtnNovaModalidade = "Nova Modalidade";
+		};
+		$scope.resetlabelBtnNovaModalidade = function() {
+			$scope.labelBtnNovaModalidade = "+";
+		};
+
 		
 		var alunosTaekwondo = [
 				  	{nome: "Aluno Taekwondo 1", turma: "Turma Ter-Qui 20h"}
@@ -62,6 +67,3 @@
 			
 		}
 	};
-        
-    
-})();
