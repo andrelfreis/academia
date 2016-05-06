@@ -24,14 +24,30 @@
                   </div>
                 </md-list-item>
                </md-list>
+               <md-button class="md-primary md-raised" ng-click="showConfirmExcluirModalidade($event, modalidade)" ng-hide="alunos.length > 0" ng-disabled="modalidades.length <= 1">
+                  Excluir Modalidade
+               </md-button>
 						</md-content>
 					</md-tab>
-          <md-tab md-on-select="preencherlabelBtnNovaModalidade()" md-on-deselect="resetlabelBtnNovaModalidade()">
-            <md-tab-label>
-              <md-button class="btnNovaModalidade" aria-label="Criar Nova Modalidade">{{ labelBtnNovaModalidade }}</md-button>
+          <md-tab>
+            <md-tab-label>              
+              + Modalidade
             </md-tab-label>
             <md-tab-body>
-              Cadastro de Nova Modalidade
+              <form ng-submit="addTab(nomeModalidade)" layout="column" class="md-padding" style="padding-top: 0;">
+                <div layout="row" layout-sm="column">
+                  <div flex style="position: relative;">
+                    <h2 class="md-subhead" style="position: absolute; bottom: 0; left: 0; margin: 0; font-weight: 500; text-transform: uppercase; line-height: 35px; white-space: nowrap;">Cadastrar Nova Modalidade:</h2>
+                  </div>
+                  <md-input-container>
+                    <label for="id_nome_modalidade">Label</label>
+                    <input type="text" id="id_nome_modalidade" ng-model="nomeModalidade">
+                  </md-input-container>
+                  <md-button class="add-tab md-primary md-raised" ng-disabled="!nomeModalidade" type="submit" style="margin-right: 0;">
+                    Salvar
+                  </md-button>
+                </div>
+              </form>
             </md-tab-body>
           </md-tab>
 				</md-tabs>

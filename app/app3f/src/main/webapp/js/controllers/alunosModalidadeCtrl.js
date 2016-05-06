@@ -1,22 +1,16 @@
 angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModalidadeCtrl);
-    function alunosModalidadeCtrl ($scope) {
-		$scope.modalidades = [
+	function alunosModalidadeCtrl ($scope, $mdDialog) {
+		
+		var modalidades = [
 			{nome: "Taekwondo"}
 		  , {nome: "Aikido"}
 		  , {nome: "Pilates"}
 		];
 
-		$scope.labelBtnNovaModalidade = "+";
-		$scope.preencherlabelBtnNovaModalidade = function() {
-			$scope.labelBtnNovaModalidade = "Nova Modalidade";
-		};
-		$scope.resetlabelBtnNovaModalidade = function() {
-			$scope.labelBtnNovaModalidade = "+";
-		};
+		$scope.modalidades = modalidades;
 
-		
 		var alunosTaekwondo = [
-				  	{nome: "Aluno Taekwondo 1", turma: "Turma Ter-Qui 20h"}
+					{nome: "Aluno Taekwondo 1", turma: "Turma Ter-Qui 20h"}
 				  , {nome: "Aluno Taekwondo 2", turma: "Turma Ter-Qui 20h"}
 				  , {nome: "Aluno Taekwondo 3", turma: "Turma Seg-Qua-Sex 19:30h"}
 				  , {nome: "Aluno Taekwondo 4", turma: "Turma Ter-Qui 20h"}
@@ -29,7 +23,7 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 				  , {nome: "Aluno Taekwondo 11", turma: "Turma Ter-Qui 20h"}
 				  , {nome: "Aluno Taekwondo 12", turma: "Turma Ter-Qui 20h"}
 				  , {nome: "Aluno Taekwondo 13", turma: "Turma Ter-Qui 20h"}
-			  	];
+				];
 
 		var alunosAikido = [
 					{nome: "Aluno Aikido 1", turma: "Turma Ter-Qua 15h"}
@@ -64,6 +58,46 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 			else if (modalidade.nome === "Pilates") {
 				$scope.alunos = alunosPilates;	
 			}
-			
+			else {
+				$scope.alunos = [];
+			}
 		}
+
+		$scope.addTab = function (nomeModalidade) {
+			$scope.alunos = [];
+			modalidades.push({nome: nomeModalidade});
+			$scope.nomeModalidade = "";
+		}
+
+	    $scope.removeTab = function (modalidade) {
+    		var index = modalidades.indexOf(modalidade);
+      		modalidades.splice(index, 1);
+    	};
+
+		$scope.showConfirmExcluirModalidade = function(ev, modalidade) {
+			// Appending dialog to document.body to cover sidenav in docs app
+		    var confirm = $mdDialog.confirm()
+		          .title("Confirma a exclusão da modalidade: "+modalidade+"?")
+		          .textContent("")
+		          .ariaLabel("Confirmação da exclusão da modalidade: " + modalidade)
+		          .targetEvent(ev)
+		          .ok("SIM")
+		          .cancel("NÃO");
+		    $mdDialog.show(confirm).then(function() {
+		      $scope.removeTab(modalidade);
+		    });
+		  };
+
+		function DialogController($scope, $mdDialog) {
+		  $scope.hide = function() {
+		    $mdDialog.hide();
+		  };
+		  $scope.cancel = function() {
+		    $mdDialog.cancel();
+		  };
+		  $scope.answer = function(answer) {
+		    $mdDialog.hide(answer);
+		  };
+		}
+
 	};
