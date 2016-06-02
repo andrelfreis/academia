@@ -63,10 +63,10 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 			}
 		}
 
-		$scope.addTab = function (nomeModalidade) {
+		$scope.addTab = function (modalidade) {
 			$scope.alunos = [];
-			modalidades.push({nome: nomeModalidade});
-			$scope.nomeModalidade = "";
+			modalidades.push(angular.copy(modalidade));
+			delete $scope.modalidade;
 		}
 
 	    $scope.removeTab = function (modalidade) {
@@ -77,9 +77,9 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 		$scope.showConfirmExcluirModalidade = function(ev, modalidade) {
 			// Appending dialog to document.body to cover sidenav in docs app
 		    var confirm = $mdDialog.confirm()
-		          .title("Confirma a exclusão da modalidade: "+modalidade+"?")
+		          .title("Confirma a exclusão da modalidade: " + modalidade.nome + "?")
 		          .textContent("")
-		          .ariaLabel("Confirmação da exclusão da modalidade: " + modalidade)
+		          .ariaLabel("Confirmação da exclusão da modalidade: " + modalidade.nome)
 		          .targetEvent(ev)
 		          .ok("SIM")
 		          .cancel("NÃO");
