@@ -79,25 +79,15 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 		    var confirm = $mdDialog.confirm()
 		          .title("Confirma a exclusão da modalidade: " + modalidade.nome + "?")
 		          .textContent("")
-		          .ariaLabel("Confirmação da exclusão da modalidade: " + modalidade.nome)
+		          .ariaLabel("Confirmar a exclusão da modalidade: " + modalidade.nome)
 		          .targetEvent(ev)
-		          .ok("SIM")
-		          .cancel("NÃO");
+		          .ok("NÃO")
+		          .cancel("SIM");
 		    $mdDialog.show(confirm).then(function() {
-		      $scope.removeTab(modalidade);
+		      // you choose NO! That's ok to make cancel the default action!
+		    }, function() {
+				$scope.removeTab(modalidade)
 		    });
 		  };
-
-		function DialogController($scope, $mdDialog) {
-		  $scope.hide = function() {
-		    $mdDialog.hide();
-		  };
-		  $scope.cancel = function() {
-		    $mdDialog.cancel();
-		  };
-		  $scope.answer = function(answer) {
-		    $mdDialog.hide(answer);
-		  };
-		}
 
 	};
