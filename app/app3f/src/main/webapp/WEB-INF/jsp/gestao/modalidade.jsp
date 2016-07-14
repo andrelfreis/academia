@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
         <!-- Angular Material style sheet -->
   		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.css">
-  		<link rel="stylesheet" href="css/app.css">
+  		<link rel="stylesheet" href="/css/app.css">
     </head>
     <body ng-controller="alunosModalidadeCtrl" ng-cloak>		
         <div class="tabModalidades">
@@ -63,7 +63,7 @@
   		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
   		
   		<!-- Your application bootstrap  -->
-  		<script src="js/app.js"></script>
-      <script src="js/controllers/alunosModalidadeCtrl.js"></script>
+  		<script src="/js/app.js"></script>
+      <script src="/js/controllers/alunosModalidadeCtrl.js"></script>
     </body>
 </html>

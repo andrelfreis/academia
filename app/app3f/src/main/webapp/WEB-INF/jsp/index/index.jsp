@@ -7,4 +7,6 @@
     <body>
         <h1>${mensagem}</h1>
     </body>
+    
+    <a href="gestao/modalidade">ir para Gestao</a>
 </html>

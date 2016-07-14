@@ -7,15 +7,14 @@ Relatório de inadimplência
 Relatório mensal geral e por modalidade... etc...
 
 
-recursos:
+recursos: 
+/app3f/
+redirect temporario para gestao/modalidade/{modalidade}/turma/{turma}
 
-/modalidade
-- GET: lista as modalidades, com um botão + para abrir o formulario de inclusão
-se clicar numa modalidade, abre a tela para edição, só com opção de exclusão
-- POST: cria a nova modalidade
-- PUT: edita (exclui)
+gestao/modalidade/{modalidade}/{turma}
+listas as tabs de modalidade, a ultima tab add nova modalidade
 
-
+cada tab modalidade lista tabs de turma, a ultima tab
 
 
 
