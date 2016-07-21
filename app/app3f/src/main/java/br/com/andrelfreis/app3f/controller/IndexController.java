@@ -26,6 +26,6 @@ public class IndexController {
    
     @Path("/")
     public void index() {
-        result.include("mensagem", "Olá, VRaptor 4!");
+        result.include("mensagem", "Bem Vindo à academia 3F!");
     }
 }

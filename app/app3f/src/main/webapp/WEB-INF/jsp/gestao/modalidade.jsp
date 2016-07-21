@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 
 <html ng-app="gestaoAcademia" lang="pt-br">
@@ -8,7 +9,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
         <!-- Angular Material style sheet -->
   		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.css">
-  		<link rel="stylesheet" href="/css/app.css">
+  		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     </head>
     <body ng-controller="alunosModalidadeCtrl" ng-cloak>		
         <div class="tabModalidades">
@@ -18,7 +19,7 @@
 						<md-content class="md-padding">
 							 <md-list>
                 <md-list-item class="md-2-line" ng-repeat="aluno in alunos">
-                  <img alt="foto do aluno {{ aluno.nome }}" ng-src="img/taekwondo-avatar.jpg" class="md-avatar" />
+                  <img alt="foto do aluno {{ aluno.nome }}" ng-src="${pageContext.request.contextPath}/img/taekwondo-avatar.jpg" class="md-avatar" />
                   <div class="md-list-item-text" layout="column">
                     <h3>{{ aluno.nome }}</h3>
                     <h4>{{ aluno.turma }}</h4>
@@ -63,7 +64,7 @@
   		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
   		
   		<!-- Your application bootstrap  -->
-  		<script src="/js/app.js"></script>
-      <script src="/js/controllers/alunosModalidadeCtrl.js"></script>
+  		<script src="${pageContext.request.contextPath}/js/app.js"></script>
+      <script src="${pageContext.request.contextPath}/js/controllers/alunosModalidadeCtrl.js"></script>
     </body>
 </html>

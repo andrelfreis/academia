@@ -2,11 +2,11 @@
 
 <html>
     <head>
-        <title>Página inicial</title>
+        <title>Academia 3F Home</title>
     </head>
     <body>
         <h1>${mensagem}</h1>
     </body>
     
-    <a href="gestao/modalidade">ir para Gestao</a>
+    <a href="gestao/modalidade">Gestao da academia</a>
 </html>
