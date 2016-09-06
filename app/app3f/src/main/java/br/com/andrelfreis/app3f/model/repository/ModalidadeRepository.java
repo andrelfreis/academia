@@ -15,7 +15,7 @@ public class ModalidadeRepository {
 	@Inject
 	private EntityManager em;
 
-	public List<Modalidade> listAll() {
+	public List<Modalidade> listarTodas() {
 		CriteriaQuery<Modalidade> cq = em.getCriteriaBuilder().createQuery(Modalidade.class);
 		cq.select(cq.from(Modalidade.class));
 		return (List<Modalidade>) em.createQuery(cq).getResultList();

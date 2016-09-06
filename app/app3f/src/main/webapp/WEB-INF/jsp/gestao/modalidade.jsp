@@ -17,36 +17,36 @@
 			    <md-tabs md-dynamic-height="" md-border-bottom="" md-stretch-tabs="auto">
 					<md-tab ng-repeat="modalidade in modalidades" md-on-select="carregarAlunos(modalidade)" label="{{ modalidade.nome }}">
 						<md-content class="md-padding">
-							 <md-list>
-                <md-list-item class="md-2-line" ng-repeat="aluno in alunos">
-                  <img alt="foto do aluno {{ aluno.nome }}" ng-src="${pageContext.request.contextPath}/img/taekwondo-avatar.jpg" class="md-avatar" />
-                  <div class="md-list-item-text" layout="column">
-                    <h3>{{ aluno.nome }}</h3>
-                    <h4>{{ aluno.turma }}</h4>
-                  </div>
-                </md-list-item>
-               </md-list>
-               <md-button class="md-primary md-raised md-warn" ng-click="showConfirmExcluirModalidade($event, modalidade)" ng-hide="alunos.length > 0" ng-disabled="modalidades.length <= 1">
-                  Excluir Modalidade
-               </md-button>
+							<md-list>
+				               <md-list-item class="md-2-line" ng-repeat="aluno in alunos">
+				                  <img alt="foto do aluno {{ aluno.nome }}" ng-src="${pageContext.request.contextPath}/img/taekwondo-avatar.jpg" class="md-avatar" />
+				                  <div class="md-list-item-text" layout="column">
+				                    <h3>{{ aluno.nome }}</h3>
+				                    <h4>{{ aluno.turma }}</h4>
+				                  </div>
+				                </md-list-item>
+				               </md-list>
+			               <md-button class="md-primary md-raised md-warn" ng-click="showConfirmExcluirModalidade($event, modalidade)" ng-hide="alunos.length > 0" ng-disabled="modalidades.length <= 1">
+			                  Excluir Modalidade
+			               </md-button>
 						</md-content>
 					</md-tab>
-          <md-tab>
-            <md-tab-label>              
-              + Modalidade
-            </md-tab-label>
-            <md-tab-body>
-              <form ng-submit="addTab(modalidade)" layout="column" class="md-padding">
-                <div>
-                  <md-input-container>
-                    <label for="id_nome_modalidade">Nova Modalidade</label>
-                    <input type="text" id="id_nome_modalidade" ng-model="modalidade.nome">
-                  </md-input-container>
-                  <md-button class="add-tab md-primary md-raised" ng-disabled="!modalidade.nome" type="submit">Salvar</md-button>
-                </div>
-              </form>
-            </md-tab-body>
-          </md-tab>
+					<md-tab>
+						<md-tab-label>              
+		             	+ Modalidade
+		             	</md-tab-label>
+		            	<md-tab-body>
+		              		<form ng-submit="addTab(modalidade)" layout="column" class="md-padding">
+				                <div>
+				                  <md-input-container>
+				                    <label for="id_nome_modalidade">Nova Modalidade</label>
+				                    <input type="text" id="id_nome_modalidade" ng-model="modalidade.nome">
+				                  </md-input-container>
+				                  <md-button class="add-tab md-primary md-raised" ng-disabled="!modalidade.nome" type="submit">Salvar</md-button>
+				                </div>
+		              		</form>
+						</md-tab-body>
+					</md-tab>
 				</md-tabs>
 			</md-content>
 		</div>

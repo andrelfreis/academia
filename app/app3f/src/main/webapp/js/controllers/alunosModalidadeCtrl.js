@@ -1,13 +1,13 @@
 angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModalidadeCtrl);
-	function alunosModalidadeCtrl ($scope, $mdDialog) {
+	function alunosModalidadeCtrl ($scope, $mdDialog, $http) {
 		
-		var modalidades = [
-			{nome: "Taekwondo"}
-		  , {nome: "Aikido"}
-		  , {nome: "Pilates"}
-		];
+		$scope.modalidades = [];
 
-		$scope.modalidades = modalidades;
+		var carregarModalidades = function () {
+			$http.get("http://localhost:8080/app3f/service/modalidade").success(function(data, status) {
+				$scope.modalidades = data;
+			});
+		};
 
 		var alunosTaekwondo = [
 					{nome: "Aluno Taekwondo 1", turma: "Turma Ter-Qui 20h"}
@@ -65,13 +65,13 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 
 		$scope.addTab = function (modalidade) {
 			$scope.alunos = [];
-			modalidades.push(angular.copy(modalidade));
+			$scope.modalidades.push(angular.copy(modalidade));
 			delete $scope.modalidade;
 		}
 
 	    $scope.removeTab = function (modalidade) {
-    		var index = modalidades.indexOf(modalidade);
-      		modalidades.splice(index, 1);
+    		var index = $scope.modalidades.indexOf(modalidade);
+      		$scope.modalidades.splice(index, 1);
     	};
 
 		$scope.showConfirmExcluirModalidade = function(ev, modalidade) {
@@ -89,5 +89,7 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 				$scope.removeTab(modalidade)
 		    });
 		  };
-
+		  
+		carregarModalidades();  
+		  
 	};

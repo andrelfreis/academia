@@ -16,6 +16,8 @@ listas as tabs de modalidade, a ultima tab add nova modalidade
 
 cada tab modalidade lista tabs de turma, a ultima tab
 
+service/modalidade
+Lista todas as modalidades
 
 
 
