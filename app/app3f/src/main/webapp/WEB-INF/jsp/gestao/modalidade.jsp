@@ -40,6 +40,7 @@
 				                <div>
 				                  <md-input-container>
 				                    <label for="id_nome_modalidade">Nova Modalidade</label>
+				                    <input type="hidden" value="" ng-model="modalidade.id">
 				                    <input type="text" id="id_nome_modalidade" ng-model="modalidade.nome">
 				                  </md-input-container>
 				                  <md-button class="add-tab md-primary md-raised" ng-disabled="!modalidade.nome" type="submit">Salvar</md-button>

@@ -64,9 +64,12 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 		}
 
 		$scope.addTab = function (modalidade) {
-			$scope.alunos = [];
-			$scope.modalidades.push(angular.copy(modalidade));
-			delete $scope.modalidade;
+			$http.post("http://localhost:8080/app3f/service/modalidade", modalidade).success(function (retorno) {
+				$scope.alunos = [];
+				//$scope.modalidades.push(angular.copy(modalidade));
+				delete $scope.modalidade;
+				carregarModalidades();
+			});
 		}
 
 	    $scope.removeTab = function (modalidade) {
