@@ -15,7 +15,7 @@ public class ModalidadeRepository {
 	@Inject
 	private EntityManager entityManager;
 
-	public List<Modalidade> listarTodas() {
+	public List<Modalidade> findAll() {
 		CriteriaQuery<Modalidade> cq = entityManager.getCriteriaBuilder().createQuery(Modalidade.class);
 		cq.select(cq.from(Modalidade.class));
 		return (List<Modalidade>) entityManager.createQuery(cq).getResultList();
@@ -24,6 +24,19 @@ public class ModalidadeRepository {
 	public void insert(Modalidade modalidade) {
 		//System.out.println("Chegou aqui? id = " + modalidade.getId() + "; nome = " + modalidade.getNome());
 		entityManager.persist(modalidade);
+	}
+	
+	
+	public Modalidade find(Modalidade modalidade) {
+		System.out.println("Chegou aqui? id = " + modalidade.getId() + "; nome = " + modalidade.getNome());
+		return entityManager.find(Modalidade.class, modalidade.getId());
+	}
+	
+	
+	public void remove(Modalidade modalidade) {
+		Modalidade _modalidade = find(modalidade);
+		System.out.println("Chegou aqui? id = " + _modalidade.getId() + "; nome = " + _modalidade.getNome());
+		//entityManager.remove(modalidade);
 	}
 	
 	

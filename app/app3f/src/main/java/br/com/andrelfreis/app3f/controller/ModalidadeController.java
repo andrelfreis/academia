@@ -6,6 +6,7 @@ import br.com.andrelfreis.app3f.model.Modalidade;
 import br.com.andrelfreis.app3f.model.repository.ModalidadeRepository;
 import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -37,7 +38,7 @@ public class ModalidadeController {
     public void listarTodas() {
         result.use(Results.json())
             .withoutRoot()
-            .from(modalidadeRepository.listarTodas())
+            .from(modalidadeRepository.findAll())
             .serialize();
     }
     
@@ -46,6 +47,14 @@ public class ModalidadeController {
     @Consumes("application/json")
     public void adicionar(Modalidade modalidade) {
     	modalidadeRepository.insert(modalidade);
+    	result.nothing();
+    }
+    
+    @Delete
+    @Path("/modalidade")
+    @Consumes("application/json")
+    public void remover(Modalidade modalidade) {
+    	modalidadeRepository.remove(modalidade);
     	result.nothing();
     }
     
