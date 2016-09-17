@@ -12,15 +12,15 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 
 		$scope.addTabModalidade = function (modalidade) {
 			$http.post("http://localhost:8080/app3f/service/modalidade", modalidade).success(function (retorno) {
-				//$scope.modalidades.push(angular.copy(modalidade));
+				console.log("RETORNO =" + retorno);
+				$scope.modalidades.push(angular.copy(modalidade));
 				delete $scope.modalidade;
-				carregarModalidades();
+				//carregarModalidades();
 			});
 		}
 
 	    $scope.removeTabModalidade = function (modalidade) {
-	    	console.log("modalidade id = " + modalidade.id + ", nome = " + modalidade.nome);
-	    	$http.delete("http://localhost:8080/app3f/service/modalidade", modalidade).success(function (retorno) {
+	    	$http.delete("http://localhost:8080/app3f/service/modalidade/"+modalidade.id).success(function (retorno) {
 	    		var index = $scope.modalidades.indexOf(modalidade);
 	    		$scope.modalidades.splice(index, 1);
 	    	});

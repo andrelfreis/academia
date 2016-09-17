@@ -47,14 +47,15 @@ public class ModalidadeController {
     @Consumes("application/json")
     public void adicionar(Modalidade modalidade) {
     	modalidadeRepository.insert(modalidade);
-    	result.nothing();
+    	result.include(modalidade);
+    	result.use(Results.status()).created("/modalidade/"+modalidade.getId());
     }
     
     @Delete
-    @Path("/modalidade")
+    @Path("/modalidade/{modalidade.id}")
     @Consumes("application/json")
     public void remover(Modalidade modalidade) {
-    	modalidadeRepository.remove(modalidade);
+    	modalidadeRepository.delete(modalidade);
     	result.nothing();
     }
     

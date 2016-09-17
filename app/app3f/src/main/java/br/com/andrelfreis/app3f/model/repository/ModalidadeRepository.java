@@ -22,21 +22,15 @@ public class ModalidadeRepository {
 	}
 
 	public void insert(Modalidade modalidade) {
-		//System.out.println("Chegou aqui? id = " + modalidade.getId() + "; nome = " + modalidade.getNome());
 		entityManager.persist(modalidade);
 	}
 	
-	
 	public Modalidade find(Modalidade modalidade) {
-		System.out.println("Chegou aqui? id = " + modalidade.getId() + "; nome = " + modalidade.getNome());
 		return entityManager.find(Modalidade.class, modalidade.getId());
 	}
 	
-	
-	public void remove(Modalidade modalidade) {
-		Modalidade _modalidade = find(modalidade);
-		System.out.println("Chegou aqui? id = " + _modalidade.getId() + "; nome = " + _modalidade.getNome());
-		//entityManager.remove(modalidade);
+	public void delete(Modalidade modalidade) {
+		entityManager.remove(find(modalidade));
 	}
 	
 	
