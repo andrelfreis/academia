@@ -1,21 +1,25 @@
 angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModalidadeCtrl);
-	function alunosModalidadeCtrl ($scope, $mdDialog, $http) {
+	function alunosModalidadeCtrl ($scope, $mdDialog, $http, modalidadeAPI) {
 		
 		$scope.modalidades = [];
 
-		var carregarModalidades = function () {
-			$http.get("http://localhost:8080/app3f/service/modalidade").success(function(data, status) {
+		var carregarModalidades = function (modalidadeCriada) {
+			modalidadeAPI.getModalidades().success(function(data, status) {
 				$scope.modalidades = data;
+				console.log("modalidades no scope = " + $scope.modalidades);
+				if (modalidadeCriada) {
+					console.log("modalidadeCriada = " + modalidadeCriada.nome);
+				}
 			});
 		};
 
 
 		$scope.addTabModalidade = function (modalidade) {
-			$http.post("http://localhost:8080/app3f/service/modalidade", modalidade).success(function (retorno) {
-				console.log("RETORNO =" + retorno);
-				$scope.modalidades.push(angular.copy(modalidade));
+			modalidadeAPI.saveModalidade(modalidade).success(function (data, status) {
+				var modalidadeCriada = angular.copy(modalidade);
+				$scope.modalidades.push(modalidadeCriada);
 				delete $scope.modalidade;
-				//carregarModalidades();
+				carregarModalidades(modalidadeCriada);
 			});
 		}
 

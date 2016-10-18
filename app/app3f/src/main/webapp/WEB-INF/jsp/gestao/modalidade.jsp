@@ -57,6 +57,7 @@
   		
   		<!-- Your application bootstrap  -->
   		<script src="${pageContext.request.contextPath}/js/app.js"></script>
-      <script src="${pageContext.request.contextPath}/js/controllers/alunosModalidadeCtrl.js"></script>
+      	<script src="${pageContext.request.contextPath}/js/controllers/alunosModalidadeCtrl.js"></script>
+      	<script src="${pageContext.request.contextPath}/js/services/modalidadeAPIService.js"></script>
     </body>
 </html>
