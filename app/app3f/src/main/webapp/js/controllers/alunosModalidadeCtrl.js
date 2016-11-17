@@ -6,20 +6,17 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 		var carregarModalidades = function (modalidadeCriada) {
 			modalidadeAPI.getModalidades().success(function(data, status) {
 				$scope.modalidades = data;
-				console.log("modalidades no scope = " + $scope.modalidades);
-				if (modalidadeCriada) {
-					console.log("modalidadeCriada = " + modalidadeCriada.nome);
-				}
 			});
 		};
 
 
 		$scope.addTabModalidade = function (modalidade) {
-			modalidadeAPI.saveModalidade(modalidade).success(function (data, status) {
+			modalidadeAPI.saveModalidade(modalidade).success(function (data, status, headers) {
+				console.log("headers.Location = " + headers("Location"));
 				var modalidadeCriada = angular.copy(modalidade);
 				$scope.modalidades.push(modalidadeCriada);
 				delete $scope.modalidade;
-				carregarModalidades(modalidadeCriada);
+				//carregarModalidades(modalidadeCriada);
 			});
 		}
 
