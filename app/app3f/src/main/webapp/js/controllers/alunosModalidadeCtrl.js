@@ -12,8 +12,9 @@ angular.module("gestaoAcademia").controller("alunosModalidadeCtrl", alunosModali
 
 		$scope.addTabModalidade = function (modalidade) {
 			modalidadeAPI.saveModalidade(modalidade).success(function (data, status, headers) {
-				console.log("headers.Location = " + headers("Location"));
+				var newId = headers("Location").split("/").pop();
 				var modalidadeCriada = angular.copy(modalidade);
+				modalidadeCriada.id = newId;
 				$scope.modalidades.push(modalidadeCriada);
 				delete $scope.modalidade;
 				//carregarModalidades(modalidadeCriada);
