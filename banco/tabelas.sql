@@ -219,21 +219,49 @@ CREATE SEQUENCE app3f.sq_pro_id;
 CREATE TABLE app3f.tur_turma (
 	  tur_id integer NOT NULL
 	, tur_mod_id integer NOT NULL 
-	, tur_pro_id integer NOT NULL 
+	, tur_descricao character varying(30) NULL
 	, tur_data_registro date NOT NULL DEFAULT CURRENT_DATE
 	, tur_data_inicio date NOT NULL
 	, tur_hora_inicio time NOT NULL
 	, tur_hora_termino time NOT NULL
 	, tur_data_termino date NULL
-	, tur_valor_mensalidade numeric(7,2) NOT NULL
 );
 ALTER TABLE app3f.tur_turma
 	  ADD CONSTRAINT pk_tur_id PRIMARY KEY (tur_id)
 	, ADD CONSTRAINT fk_tur_mod_id FOREIGN KEY (tur_mod_id) REFERENCES app3f.mod_modalidade (mod_id) 
-	, ADD CONSTRAINT fk_tur_pro_id FOREIGN KEY (tur_pro_id) REFERENCES app3f.pro_professor (pro_id) 
 	, ADD CONSTRAINT ck_hora_inicio_menor_que_hora_termino CHECK (tur_hora_inicio < tur_hora_termino)
 ;
 CREATE SEQUENCE app3f.sq_tur_id;
+
+
+
+CREATE TABLE app3f.tpr_turma_professor (
+	  tpr_id integer NOT NULL
+	, tpr_tur_id integer NOT NULL
+	, tpr_pro_id integer NOT NULL
+);
+ALTER TABLE app3f.tpr_turma_professor
+	  ADD CONSTRAINT pk_tpr_id PRIMARY KEY (tpr_id)
+	, ADD CONSTRAINT fk_tpr_tur_id FOREIGN KEY (tpr_tur_id) REFERENCES app3f.tur_turma (tur_id) ON DELETE CASCADE
+	, ADD CONSTRAINT fk_tpr_pro_id FOREIGN KEY (tpr_pro_id) REFERENCES app3f.pro_professor (pro_id) ON DELETE CASCADE
+	, ADD CONSTRAINT un_turma_ja_tem_professor UNIQUE (tpr_tur_id)
+;
+CREATE SEQUENCE app3f.sq_tpr_id;
+
+
+
+CREATE TABLE app3f.men_mensalidade (
+	  men_id integer NOT NULL
+	, men_tur_id integer NOT NULL
+	, men_valor numeric(7,2) NOT NULL
+	, men_data_termino date NULL
+);
+ALTER TABLE app3f.men_mensalidade
+	  ADD CONSTRAINT pk_men_id PRIMARY KEY (men_id)
+	, ADD CONSTRAINT fk_men_tur_id FOREIGN KEY (men_tur_id) REFERENCES app3f.tur_turma (tur_id) ON DELETE CASCADE
+	, ADD CONSTRAINT ...
+;
+CREATE SEQUENCE app3f.sq_men_id;
 
 
 
