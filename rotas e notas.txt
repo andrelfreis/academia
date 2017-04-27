@@ -9,12 +9,35 @@ Relatório mensal geral e por modalidade... etc...
 
 recursos: 
 /app3f/
-redirect temporario para gestao/modalidade/{modalidade}/turma/{turma}
+-redirect temporario para gestao/modalidade/{modalidade}/turma/{turma}
+
+
+/gestao/convenio
+- lista todos convenios
+
+/gestao/convenio/{convenio_nome}
+- formulário para editar o convenio
+
+/service/convenio POST cria convenio
+/service/convenio PUT edita convenio
+/servive/convenio/{convenio_nome} DELETE deleta convenio
+
+
+
+/gestao/modalidade
+- lista todas modalidades
+/gestao/modalidade/{modalidade_nome}
+- formulario 
+
 
 gestao/modalidade/{modalidade}/{turma}
-listas as tabs de modalidade, a ultima tab add nova modalidade
+-listas as tabs de modalidade, a ultima tab add nova modalidade
+-cada tab modalidade lista tabs de turma, a ultima tab
 
-cada tab modalidade lista tabs de turma, a ultima tab
+
+
+
+
 
 service/modalidade
 Lista todas as modalidades

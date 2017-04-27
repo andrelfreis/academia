@@ -23,9 +23,15 @@ public class GestaoController {
 		this.modalidadeRepository = modalidadeRepository;
 	}*/
 
-   
+	@Path("/convenio")
+    public void convenio() {
+    	
+    }
+	
     @Path("/modalidade")
     public void modalidade() {
     	
     }
+    
+    
 }

@@ -1,61 +1,70 @@
+﻿/* ***********
+ DROP OBJS
+*********** */
+DROP SEQUENCE app3f.sq_pag_id;
+DROP TABLE app3f.pag_pagamento;
 
+DROP SEQUENCE app3f.sq_coa_id;
+DROP TABLE app3f.coa_convenio_aluno;
 
+DROP SEQUENCE app3f.sq_con_id;
+DROP TABLE app3f.con_convenio;
 
-DROP TABLE app3f.pes_pessoa;
-DROP SEQUENCE app3f.sq_pes_id;
+DROP SEQUENCE app3f.sq_tal_id;
+DROP TABLE app3f.tal_turma_aluno;
 
-DROP TABLE app3f.usu_usuario;
-DROP SEQUENCE app3f.sq_usu_id;
-
-DROP TABLE app3f.per_perfil;
-DROP SEQUENCE app3f.sq_per_id;
-
-DROP TABLE app3f.pfu_perfil_usuario;
-DROP SEQUENCE app3f.sq_pfu_id;
-
-DROP TABLE app3f.alunos;
-DROP SEQUENCE app3f.sq_alu_id;
-
-DROP TABLE app3f.eml_email_pessoa;
-DROP SEQUENCE app3f.sq_eml_id;
-
-DROP TABLE app3f.tel_telefone_pessoa;
-DROP SEQUENCE app3f.sq_tel_id;
-
-DROP TABLE app3f.uf_uf;
-DROP SEQUENCE app3f.sq_uf_id;
-
-DROP TABLE app3f.end_endereco;
-DROP SEQUENCE app3f.sq_end_id;
-
-DROP TABLE app3f.mod_modalidade;
-DROP SEQUENCE app3f.sq_mod_id;
-
-DROP TABLE app3f.pro_professor;
-DROP SEQUENCE app3f.sq_pro_id;
-
-DROP TABLE app3f.tur_turma;
-DROP SEQUENCE app3f.sq_tur_id;
+DROP SEQUENCE app3f.sq_tdi_id;
+DROP TABLE app3f.tdi_turma_dia;
 
 DROP TABLE app3f.dia_dia;
-DROP SEQUENCE app3f.sq_dia_id;
 
-DROP TABLE app3f.tdi_turma_dia;
-DROP SEQUENCE app3f.sq_tdi_id;
+DROP SEQUENCE app3f.sq_men_id;
+DROP TABLE app3f.men_mensalidade;
 
-DROP TABLE app3f.tal_turma_aluno;
-DROP SEQUENCE app3f.sq_tal_id;
+DROP SEQUENCE app3f.sq_tpr_id;
+DROP TABLE app3f.tpr_turma_professor;
 
-DROP TABLE app3f.con_convenio;
-DROP SEQUENCE app3f.sq_con_id;
+DROP SEQUENCE app3f.sq_tur_id;
+DROP TABLE app3f.tur_turma;
 
-DROP TABLE app3f.coa_convenio_aluno;
-DROP SEQUENCE app3f.sq_coa_id;
+DROP SEQUENCE app3f.sq_pro_id;
+DROP TABLE app3f.pro_professor;
 
-DROP TABLE app3f.pag_pagamento;
-DROP SEQUENCE app3f.sq_pag_id;
+DROP SEQUENCE app3f.sq_mod_id;
+DROP TABLE app3f.mod_modalidade;
+
+DROP SEQUENCE app3f.sq_alu_id;
+DROP TABLE app3f.alu_aluno;
+
+DROP SEQUENCE app3f.sq_pfu_id;
+DROP TABLE app3f.pfu_perfil_usuario;
+
+DROP SEQUENCE app3f.sq_per_id;
+DROP TABLE app3f.per_perfil;
+
+DROP SEQUENCE app3f.sq_usu_id;
+DROP TABLE app3f.usu_usuario;
+
+DROP SEQUENCE app3f.sq_end_id;
+DROP TABLE app3f.end_endereco;
+
+DROP TABLE app3f.uf_uf;
+
+DROP SEQUENCE app3f.sq_tel_id;
+DROP TABLE app3f.tel_telefone_pessoa;
+
+DROP SEQUENCE app3f.sq_eml_id;
+DROP TABLE app3f.eml_email_pessoa;
+
+DROP SEQUENCE app3f.sq_pes_id;
+DROP TABLE app3f.pes_pessoa;
 
 
+
+
+/* ***********
+ CREATE TABLES
+*********** */
 
 CREATE TABLE app3f.pes_pessoa (
 	  pes_id integer NOT NULL
@@ -72,6 +81,66 @@ ALTER TABLE app3f.pes_pessoa
 	, ADD CONSTRAINT un_cpf_repetido_em_outra_pessoa UNIQUE (pes_cpf)
 ;
 CREATE SEQUENCE app3f.sq_pes_id;
+
+
+
+CREATE TABLE app3f.eml_email_pessoa (
+	  eml_id integer NOT NULL
+	, eml_pes_id integer NOT NULL
+	, eml_email character varying NOT NULL
+);
+ALTER TABLE app3f.eml_email_pessoa
+	  ADD CONSTRAINT pk_eml_id PRIMARY KEY (eml_id)
+	, ADD CONSTRAINT fk_eml_pes_id FOREIGN KEY (eml_pes_id) REFERENCES app3f.pes_pessoa (pes_id) ON DELETE CASCADE
+;
+CREATE UNIQUE INDEX un_email_pessoa_repetido ON app3f.eml_email_pessoa (eml_pes_id, lower(eml_email));
+CREATE SEQUENCE app3f.sq_eml_id;
+
+
+
+CREATE TABLE app3f.tel_telefone_pessoa (
+	  tel_id integer NOT NULL
+	, tel_pes_id integer NOT NULL  
+	, tel_rotulo character varying(30) NOT NULL
+	, tel_telefone character varying(15) NOT NULL
+);
+ALTER TABLE app3f.tel_telefone_pessoa
+	  ADD CONSTRAINT pk_tel_id PRIMARY KEY (tel_id)
+	, ADD CONSTRAINT fk_tel_pes_id FOREIGN KEY (tel_pes_id) REFERENCES app3f.pes_pessoa (pes_id) ON DELETE CASCADE
+;
+CREATE SEQUENCE app3f.sq_tel_id;
+
+
+
+CREATE TABLE app3f.uf_uf (
+	  uf_id integer NOT NULL
+	, uf_sigla character(2) NOT NULL  
+	, uf_nome character varying(20) NOT NULL
+);
+ALTER TABLE app3f.uf_uf
+	  ADD CONSTRAINT pk_uf_id PRIMARY KEY (uf_id)
+;
+CREATE UNIQUE INDEX un_sigla_uf_repetida ON app3f.uf_uf (lower(uf_sigla));
+
+
+
+CREATE TABLE app3f.end_endereco (
+	  end_id integer NOT NULL
+	, end_pes_id integer NOT NULL 
+	, end_logradouro character varying(200) NOT NULL
+	, end_numero character varying(10) NULL
+	, end_complemento character varying(10) NULL
+	, end_bairro character varying(50) NULL
+	, end_cidade character varying(100) NOT NULL
+	, end_uf_id integer NOT NULL 
+	, end_cep character varying(8) NULL
+);
+ALTER TABLE app3f.end_endereco
+	  ADD CONSTRAINT pk_end_id PRIMARY KEY (end_id)
+	, ADD CONSTRAINT fk_end_pes_id FOREIGN KEY (end_pes_id) REFERENCES app3f.pes_pessoa (pes_id) ON DELETE CASCADE 
+	, ADD CONSTRAINT fk_end_if_id FOREIGN KEY (end_uf_id) REFERENCES app3f.uf_uf (uf_id) 
+;
+CREATE SEQUENCE app3f.sq_end_id;
 
 
 
@@ -131,66 +200,6 @@ CREATE SEQUENCE app3f.sq_alu_id;
 
 
 
-CREATE TABLE app3f.eml_email_pessoa (
-	  eml_id integer NOT NULL
-	, eml_pes_id integer NOT NULL
-	, eml_email character varying NOT NULL
-);
-ALTER TABLE app3f.eml_email_pessoa
-	  ADD CONSTRAINT pk_eml_id PRIMARY KEY (eml_id)
-	, ADD CONSTRAINT fk_eml_pes_id FOREIGN KEY (eml_pes_id) REFERENCES app3f.pes_pessoa (pes_id) ON DELETE CASCADE
-;
-CREATE UNIQUE INDEX un_email_pessoa_repetido ON app3f.eml_email_pessoa (eml_pes_id, lower(eml_email));
-CREATE SEQUENCE app3f.sq_eml_id;
-
-
-
-CREATE TABLE app3f.tel_telefone_pessoa (
-	  tel_id integer NOT NULL
-	, tel_pes_id integer NOT NULL  
-	, tel_rotulo character varying(30) NOT NULL
-	, tel_telefone character varying(15) NOT NULL
-);
-ALTER TABLE app3f.tel_telefone_pessoa
-	  ADD CONSTRAINT pk_tel_id PRIMARY KEY (tel_id)
-	, ADD CONSTRAINT fk_tel_pes_id FOREIGN KEY (tel_pes_id) REFERENCES app3f.pes_pessoa (pes_id) ON DELETE CASCADE
-;
-CREATE SEQUENCE app3f.sq_tel_id;
-
-
-
-CREATE TABLE app3f.uf_uf (
-	  uf_id integer NOT NULL
-	, uf_sigla character(2) NOT NULL  
-	, uf_nome character varying(2) NOT NULL
-);
-ALTER TABLE app3f.uf_uf
-	  ADD CONSTRAINT pk_uf_id PRIMARY KEY (uf_id)
-;
-CREATE UNIQUE INDEX un_sigla_uf_repetida ON app3f.uf_uf (lower(uf_sigla));
-
-
-
-CREATE TABLE app3f.end_endereco (
-	  end_id integer NOT NULL
-	, end_pes_id integer NOT NULL 
-	, end_logradouro character varying(200) NOT NULL
-	, end_numero character varying(10) NULL
-	, end_complemento character varying(10) NULL
-	, end_bairro character varying(50) NULL
-	, end_cidade character varying(100) NOT NULL
-	, end_uf_id integer NOT NULL 
-	, end_cep character varying(8) NULL
-);
-ALTER TABLE app3f.end_endereco
-	  ADD CONSTRAINT pk_end_id PRIMARY KEY (end_id)
-	, ADD CONSTRAINT fk_end_pes_id FOREIGN KEY (end_pes_id) REFERENCES app3f.pes_pessoa (pes_id) ON DELETE CASCADE 
-	, ADD CONSTRAINT fk_end_if_id FOREIGN KEY (end_uf_id) REFERENCES app3f.uf_uf (uf_id) 
-;
-CREATE SEQUENCE app3f.sq_end_id;
-
-
-
 CREATE TABLE app3f.mod_modalidade (
 	  mod_id integer NOT NULL
 	, mod_nome character varying(20) NOT NULL -- taekwondo, pilates
@@ -219,7 +228,7 @@ CREATE SEQUENCE app3f.sq_pro_id;
 CREATE TABLE app3f.tur_turma (
 	  tur_id integer NOT NULL
 	, tur_mod_id integer NOT NULL 
-	, tur_descricao character varying(30) NULL
+	, tur_nome character varying(30) NULL
 	, tur_data_registro date NOT NULL DEFAULT CURRENT_DATE
 	, tur_data_inicio date NOT NULL
 	, tur_hora_inicio time NOT NULL
@@ -259,7 +268,6 @@ CREATE TABLE app3f.men_mensalidade (
 ALTER TABLE app3f.men_mensalidade
 	  ADD CONSTRAINT pk_men_id PRIMARY KEY (men_id)
 	, ADD CONSTRAINT fk_men_tur_id FOREIGN KEY (men_tur_id) REFERENCES app3f.tur_turma (tur_id) ON DELETE CASCADE
-	, ADD CONSTRAINT ...
 ;
 CREATE SEQUENCE app3f.sq_men_id;
 
@@ -267,7 +275,7 @@ CREATE SEQUENCE app3f.sq_men_id;
 
 CREATE TABLE app3f.dia_dia (
 	  dia_id integer NOT NULL
-	, dia_nome character varying(7) NOT NULL -- 1-domingo a 7-s�bado
+	, dia_nome character varying(7) NOT NULL -- 1-domingo a 7-sábado
 );
 ALTER TABLE app3f.dia_dia
 	  ADD CONSTRAINT pk_dia_id PRIMARY KEY (dia_id)

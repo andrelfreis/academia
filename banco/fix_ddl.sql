@@ -11,3 +11,6 @@ DROP TABLE app3f.pag_pagamento;
 DROP TABLE app3f.tur_turma;
 
 
+ALTER TABLE app3f.uf_uf
+	ALTER COLUMN uf_nome TYPE character varying(20)
+;

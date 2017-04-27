@@ -8,5 +8,6 @@
         <h1>${mensagem}</h1>
     </body>
     
-    <a href="gestao/modalidade">Gestao da academia</a>
+    <a href="gestao/modalidade">Modalidade Turma Aluno</a>
+    <a href="gestao/convenio">Cadastro de Convênios</a>
 </html>
