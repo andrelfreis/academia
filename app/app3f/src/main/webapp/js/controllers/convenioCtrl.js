@@ -4,30 +4,22 @@ angular.module("gestaoAcademia").controller("convenioCtrl", convenioCtrl);
 		$scope.convenios = [];
 
 		$scope.carregarConvenios = function (convenioCriado) {
-			//convenioAPI.getConvenios().success(function(data, status) {
-			var teste = $http.get("http://localhost:8080/app3f/service/convenio");
-			console.log(teste);
-			teste.then(function(response) {
-				console.log("response status: " + response.status);
-				console.log("response data: " + response.data);
-				},
+			convenioAPI.getConvenios().then(function(response) {
+					$scope.convenios = response.data;
+				}, 
 				function(response) {
-					console.log("Request Failed?!?!");
+					console.log("Request Failed!");
 					console.log("response status: " + response.status);
 					console.log("response data: " + response.data || "data falhou!!!");
-					}
-			);
-			
-			/*teste.success(function(data, status) {
-				$scope.convenios = data;
-			});*/
+				}
+			)
 		};
 
 		$scope.adicionarConvenio = function (convenio) {
-			convenioAPI.saveConvenio(convenio).success(function (data, status, headers) {
-				var newId = headers("Location").split("/").pop();
+			convenioAPI.saveConvenio(convenio).then(function (response) {
 				var convenioCriado = angular.copy(convenio);
-				convenioCriado.id = newId;
+				//var newId = headers("Location").split("/").pop();
+				//convenioCriado.id = newId;
 				$scope.convenios.push(convenioCriado);
 				delete $scope.convenio;
 				//carregarConvenios();

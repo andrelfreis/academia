@@ -20,19 +20,19 @@
         		<md-subheader>Novo Convênio:</md-subheader>
             	<md-input-container>
                 	<label>Nome</label>
-               		<input required type="text" name="contatoNome" ng-model="contato.nome" maxlength="20">
-               		<div ng-messages="convenioForm.contatoNome.$error">
+               		<input required type="text" name="convenioNome" ng-model="convenio.nome" maxlength="20">
+               		<div ng-messages="convenioForm.convenioNome.$error">
               			<div ng-message="required">O nome é obrigatório</div>
             		</div>
                 </md-input-container>
                 <md-input-container>
                		<label>Desconto %</label>
-               		<input required type="number" name="contatoDesconto" ng-model="contato.desconto">
-               		<div ng-messages="convenioForm.contatoDesconto.$error">
+               		<input required type="number" name="convenioDesconto" ng-model="convenio.desconto">
+               		<div ng-messages="convenioForm.convenioDesconto.$error">
               			<div ng-message="required">Você precisa preencher o desconto.</div>
             		</div>
            		</md-input-container>
-             	<md-button class="md-primary md-raised" ng-disabled="!contato.nome && !contato.desconto" type="submit">Salvar</md-button>
+             	<md-button class="md-primary md-raised" ng-disabled="!convenio.nome && !convenio.desconto" type="submit">Salvar</md-button>
         	</div>
        	</form>
 		
