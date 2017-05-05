@@ -3,10 +3,24 @@ angular.module("gestaoAcademia").controller("convenioCtrl", convenioCtrl);
 		
 		$scope.convenios = [];
 
-		var carregarConvenios = function () {
-			convenioAPI.getConvenios().success(function(data, status) {
+		$scope.carregarConvenios = function (convenioCriado) {
+			//convenioAPI.getConvenios().success(function(data, status) {
+			var teste = $http.get("http://localhost:8080/app3f/service/convenio");
+			console.log(teste);
+			teste.then(function(response) {
+				console.log("response status: " + response.status);
+				console.log("response data: " + response.data);
+				},
+				function(response) {
+					console.log("Request Failed?!?!");
+					console.log("response status: " + response.status);
+					console.log("response data: " + response.data || "data falhou!!!");
+					}
+			);
+			
+			/*teste.success(function(data, status) {
 				$scope.convenios = data;
-			});
+			});*/
 		};
 
 		$scope.adicionarConvenio = function (convenio) {
@@ -16,7 +30,7 @@ angular.module("gestaoAcademia").controller("convenioCtrl", convenioCtrl);
 				convenioCriado.id = newId;
 				$scope.convenios.push(convenioCriado);
 				delete $scope.convenio;
-				carregarConvenios();
+				//carregarConvenios();
 			});
 		}
 
@@ -43,6 +57,6 @@ angular.module("gestaoAcademia").controller("convenioCtrl", convenioCtrl);
 		    });
 		  };
 		  
-		carregarConvenios();  
+		$scope.carregarConvenios();  
 		  
 	};
