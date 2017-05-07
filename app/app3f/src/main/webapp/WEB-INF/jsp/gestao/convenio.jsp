@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Academia 3F - Cadastro de Conv&ecirc;nios</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <!-- Angular Material style sheet -->
   		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/lib/angular-material.min.css">
   		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
@@ -32,6 +33,7 @@
               			<div ng-message="required">Você precisa preencher o desconto.</div>
             		</div>
            		</md-input-container>
+           		<br />
              	<md-button class="md-primary md-raised" ng-disabled="!convenio.nome && !convenio.desconto" type="submit">Salvar</md-button>
         	</div>
        	</form>
@@ -41,6 +43,7 @@
 		<md-list>
 			<md-list-item ng-repeat="convenio in convenios">
 				<span class="md-title">{{ convenio.nome }}: {{ convenio.desconto }}%</span>
+				<md-icon class="md-warn md-hue-2" ng-click="showConfirmExcluirConvenio($event, convenio)">visibility_off</md-icon>
 			</md-list-item>
 		</md-list>
 		        

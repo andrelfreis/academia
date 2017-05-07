@@ -31,7 +31,7 @@ public class ConvenioRepository {
 	
 	public Convenio findByName(Convenio convenio) {
 		Convenio convenioEncontrado = (Convenio) entityManager
-				.createQuery("SELECT c FROM Convenio c WHERE c.name = :convNome")
+				.createQuery("SELECT c FROM Convenio c WHERE c.nome = :convNome")
 				.setParameter("convNome", convenio.getNome())
 				.getSingleResult();
 		return convenioEncontrado;

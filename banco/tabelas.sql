@@ -1,4 +1,8 @@
-﻿/* ***********
+﻿/* **********
+postgres -D D:\Softwares\PostgreSQL\9.4\data
+******** */
+
+/* ***********
  DROP OBJS
 *********** */
 DROP SEQUENCE app3f.sq_pag_id;

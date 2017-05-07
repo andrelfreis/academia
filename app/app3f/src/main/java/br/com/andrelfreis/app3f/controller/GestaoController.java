@@ -7,21 +7,7 @@ import br.com.caelum.vraptor.Path;
 @Path("/gestao")
 public class GestaoController {
 	
-	//private final Result result;
-	//private final ModalidadeRepository modalidadeRepository;
 
-	/**
-	 * @deprecated CDI eyes only
-	 */
-	protected GestaoController() {
-		//this(null,null);
-	}
-	
-	/*@Inject
-	public GestaoController(Result result, ModalidadeRepository modalidadeRepository) {
-		this.result = result;
-		this.modalidadeRepository = modalidadeRepository;
-	}*/
 
 	@Path("/convenio")
     public void convenio() {
