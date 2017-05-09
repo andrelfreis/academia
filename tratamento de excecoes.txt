@@ -1,0 +1,21 @@
+
+
+
+/interceptor
+
+@Intercepts
+ApplicationExceptionInterceptor
+
+
+/expcetion/handler
+DefaultApplicationExceptionHander implements ApplicationExceptionHandler
+handleExpcetions(Throwable expception)
+
+
+LinkedHashMap<Exceptions, Handlers> mapOfhandlers;
+
+
+
+
+
+
