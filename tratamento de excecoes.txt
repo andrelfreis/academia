@@ -1,18 +1,25 @@
 
 
-
+// Intercepta todas exceções
 /interceptor
 
 @Intercepts
 ApplicationExceptionInterceptor
 
 
+// Mapeia qual Excecao == qual Handler
+/exception
+DefaultApplicationExceptionMapping implements ApplicationExceptionMapping
+LinkedHashMap<Exceptions, Handlers> mapOfhandlers;
+public ApplicationExceptionHandler findByException(Exception e);
+
+
+// Trata as excecoes
 /expcetion/handler
 DefaultApplicationExceptionHander implements ApplicationExceptionHandler
-handleExpcetions(Throwable expception)
+handleExpcetion(Throwable expception)
 
 
-LinkedHashMap<Exceptions, Handlers> mapOfhandlers;
 
 
 
