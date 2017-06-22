@@ -3,7 +3,7 @@ package br.com.andrelfreis.app3f.exception.handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultApplicationExceptionHandler implements ApplicationExceptionHandler {
+public class DefaultApplicationExceptionHandler implements ExceptionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultApplicationExceptionHandler.class);
 	

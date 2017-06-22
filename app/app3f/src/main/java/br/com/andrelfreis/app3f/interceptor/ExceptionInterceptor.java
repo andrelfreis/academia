@@ -7,8 +7,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.andrelfreis.app3f.exception.ApplicationExceptionMapping;
-import br.com.andrelfreis.app3f.exception.handler.ApplicationExceptionHandler;
+import br.com.andrelfreis.app3f.exception.ExceptionManager;
 import br.com.caelum.vraptor.AroundCall;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.interceptor.ExceptionHandlerInterceptor;
@@ -16,22 +15,22 @@ import br.com.caelum.vraptor.interceptor.SimpleInterceptorStack;
 
 @Intercepts(before=ExceptionHandlerInterceptor.class)
 @RequestScoped
-public class ApplicationExceptionInterceptor {
+public class ExceptionInterceptor {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ApplicationExceptionInterceptor.class);
-	private final ApplicationExceptionMapping exceptionHandlers;
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionInterceptor.class);
+	private final ExceptionManager exceptionManager;
 	
 	/** 
 	 * @deprecated CDI eyes only
 	 */
-	protected ApplicationExceptionInterceptor() {
+	protected ExceptionInterceptor() {
 		this(null);
 	}
 	
 	
 	@Inject
-	public ApplicationExceptionInterceptor(ApplicationExceptionMapping exceptionHandlers) {
-		this.exceptionHandlers = exceptionHandlers;
+	public ExceptionInterceptor(ExceptionManager exceptionManager) {
+		this.exceptionManager = exceptionManager;
 	}
 
 
@@ -49,8 +48,7 @@ public class ApplicationExceptionInterceptor {
 			
 			logger.debug("catching exception {}", e.getClass(), e);
 			
-			ApplicationExceptionHandler exceptionHandler = exceptionHandlers.findByException(e);
-			exceptionHandler.handleException(e);
+			exceptionManager.handleException(e);
 			
 			throw e;
 		}
