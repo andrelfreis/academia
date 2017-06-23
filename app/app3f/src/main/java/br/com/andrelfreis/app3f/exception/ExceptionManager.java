@@ -1,7 +1,10 @@
 package br.com.andrelfreis.app3f.exception;
 
+import static com.google.common.base.Throwables.getRootCause;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
 
 import javax.inject.Inject;
 
@@ -31,34 +34,38 @@ public class ExceptionManager {
 
 
 	public void handleException(final Exception e) {
-		
+		logger.debug("handle exception {} with rootCause {}", e, getRootCause(e));
+		ExceptionHandler exceptionHandler = findExceptionHandlerBy(e);
+		exceptionHandler.handleException(e);
+	}
+	
+	
+	private ExceptionHandler findExceptionHandlerBy(Exception e) {
+
 		Class<? extends ExceptionHandler> handlerClass = exceptionHandlersMapper.findHandlerClassBy(e);
-		
+
 		Constructor<? extends ExceptionHandler> constructor = null;
-		
 		try {
 			constructor = handlerClass.getConstructor(e.getClass());
 		} 
 		catch (NoSuchMethodException | SecurityException e2) {
-			
-			logger.error("\n\n\t Erro ao pegar o construtor da classe {} com argumento {}", handlerClass, e.getClass());
-			e.printStackTrace();
-			e2.printStackTrace();
+			String patern = "Error getting constructor of the class {} with argument {}";
+			String message = MessageFormat.format(patern, handlerClass, e.getClass());
+			throw new UnexpectedException(message , e2);
 		}
 		
-		//TODO if constructor != null;
-		
+		ExceptionHandler exceptionHandler = null;
 		try {
-			constructor.newInstance(e);
+			exceptionHandler = constructor.newInstance(e);
 		} 
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e3) {
-			
-			logger.error("\n\n\t Erro ao instanciar o Handler do construtor {} com argumento {}", constructor, e);
-			e.printStackTrace();
-			e3.printStackTrace();
+			String patern = "Error instantiating Handler of the constructor {} with argument {}";
+			String message = MessageFormat.format(patern, constructor, e);
+			throw new UnexpectedException(message , e3);
 		}
 		
-		
+		return exceptionHandler;
 	}
+	
 	
 }

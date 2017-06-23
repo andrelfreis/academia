@@ -9,22 +9,33 @@ import javax.enterprise.context.RequestScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.andrelfreis.app3f.exception.handler.DefaultExceptionHandler;
 import br.com.andrelfreis.app3f.exception.handler.ExceptionHandler;
-import br.com.andrelfreis.app3f.exception.handler.DefaultApplicationExceptionHandler;
 
 @RequestScoped
 public class DefaultExceptionHandlerMapper implements ExceptionHandlerMapper {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DefaultExceptionHandlerMapper.class);
-	private static final Map<Class<? extends Exception>, Class<? extends ExceptionHandler>> exceptionsHandlersMap = loadExceptionHandlers();
-		
+	private static Map<Class<? extends Exception>, Class<? extends ExceptionHandler>> exceptionsHandlersMap;
 	
+	/**
+	 * @deprecated CDI eyes only
+	 */
+	public DefaultExceptionHandlerMapper() {
+		DefaultExceptionHandlerMapper.exceptionsHandlersMap = loadExceptionHandlers();
+	}
+	
+	public DefaultExceptionHandlerMapper(Map<Class<? extends Exception>, Class<? extends ExceptionHandler>> exceptionsHandlersMap) {
+		DefaultExceptionHandlerMapper.exceptionsHandlersMap = exceptionsHandlersMap;
+	}
+
 	private static Map<Class<? extends Exception>, Class<? extends ExceptionHandler>> loadExceptionHandlers() {
-		Map<Class<? extends Exception>, Class<? extends ExceptionHandler>> _exceptionsHandlersMap = new LinkedHashMap<>();
+		Map<Class<? extends Exception>, Class<? extends ExceptionHandler>> handlers = new LinkedHashMap<>();
 		
-		//TODO adicionar aqui os Handlers específicos
+		//TODO: Put your ExceptionHandlers here:
+		//exceptionsHandlersMap.put(YourException.class, YourExceptionHandler.class);
 		
-		return _exceptionsHandlersMap;
+		return handlers;
 	}
 
 	@Override
@@ -40,7 +51,7 @@ public class DefaultExceptionHandlerMapper implements ExceptionHandlerMapper {
 			}
 		}
 		
-		return hasExceptionCause(e) ? findHandlerClassBy((Exception) e.getCause()) : DefaultApplicationExceptionHandler.class;
+		return hasExceptionCause(e) ? findHandlerClassBy((Exception) e.getCause()) : DefaultExceptionHandler.class;
 	}
 
 	private boolean hasExceptionCause(Exception e) {

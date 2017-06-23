@@ -1,6 +1,8 @@
 package br.com.andrelfreis.app3f.interceptor;
 
 
+import static com.google.common.base.Throwables.getRootCause;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -38,19 +40,12 @@ public class ExceptionInterceptor {
 
 	@AroundCall
 	public void intercept(SimpleInterceptorStack stack) {
-		
 		try {
 			stack.next();
 		} 
 		catch (Exception e) {
-			
-			System.out.println("\n\n\t ********* Teste Exception Interceptor  ********** \n\n");
-			
-			logger.debug("catching exception {}", e.getClass(), e);
-			
+			logger.debug("intercepting exception {} with rootCause {}", e, getRootCause(e));
 			exceptionManager.handleException(e);
-			
-			throw e;
 		}
 		
 	}
